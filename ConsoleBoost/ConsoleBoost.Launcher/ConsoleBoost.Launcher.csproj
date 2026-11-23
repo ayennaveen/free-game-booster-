@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleBoost.Models\ConsoleBoost.Models.csproj" />
+    <ProjectReference Include="..\ConsoleBoost.Core\ConsoleBoost.Core.csproj" />
+    <ProjectReference Include="..\ConsoleBoost.Services\ConsoleBoost.Services.csproj" />
+    <ProjectReference Include="..\ConsoleBoost.Optimizer\ConsoleBoost.Optimizer.csproj" />
+  </ItemGroup>
+</Project>

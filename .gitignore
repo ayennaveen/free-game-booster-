@@ -1,0 +1,18 @@
+# Binaries - too large for GitHub (>100MB limit)
+*.exe
+*.dll
+*.pdb
+
+# Build output
+bin/
+obj/
+Publish/
+
+# VS/IDE files
+.vs/
+*.user
+*.suo
+
+# NuGet
+packages/
+*.nupkg

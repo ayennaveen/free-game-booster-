@@ -1,0 +1,141 @@
+<UserControl x:Class="ConsoleBoost.UI.Views.ClassificationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="950">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Top Header Status Banner -->
+        <Border Grid.Row="0" Style="{StaticResource GlassCard}" Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="HARDWARE CLASSIFICATION ENGINE" Foreground="{StaticResource AccentCyanBrush}" FontWeight="Bold" FontSize="12" />
+                    <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource TextPrimaryBrush}" FontSize="18" FontWeight="SemiBold" Margin="0,4,0,0" />
+                </StackPanel>
+                <Button Grid.Column="1" Content="🔄 RE-EVALUATE HARDWARE" Style="{StaticResource PrimaryButton}" Command="{Binding ReevaluateCommand}" VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <!-- Main Classification Banner Card -->
+        <Border Grid.Row="1" Style="{StaticResource GlassCard}" Margin="0,0,0,20" Background="#141724" BorderBrush="#00F2FE">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="#8B5CF6" CornerRadius="6" Padding="10,4" Margin="0,0,12,0">
+                            <TextBlock Text="{Binding Classification.TierName}" Foreground="#FFFFFF" FontSize="14" FontWeight="Black" />
+                        </Border>
+                        <Border Background="#162E2B" BorderBrush="#00FF66" BorderThickness="1" CornerRadius="6" Padding="10,4">
+                            <TextBlock Text="{Binding Classification.HardwareScore, StringFormat='{}COMPOSITE SCORE: {0} / 100'}" Foreground="#00FF66" FontSize="12" FontWeight="Bold" />
+                        </Border>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding Classification.Description}" Foreground="{StaticResource TextMutedBrush}" FontSize="13" Margin="0,10,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+
+                <!-- Big Hardware Score Meter -->
+                <Border Grid.Column="1" Style="{StaticResource GlassCard}" Padding="20,15" VerticalAlignment="Center" Margin="20,0,0,0" Background="#1A1C2A">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding Classification.HardwareScore}" Foreground="#00F2FE" FontSize="36" FontWeight="Black" HorizontalAlignment="Center" />
+                        <TextBlock Text="RATING TIER" Foreground="{StaticResource TextMutedBrush}" FontSize="9" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Detailed Hardware Specifications Grid -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Processor Specs Card -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource GlassCard}">
+                    <StackPanel>
+                        <TextBlock Text="PROCESSOR (CPU)" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Classification.CpuName}" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold" Margin="0,6,0,0" />
+
+                        <Grid Margin="0,15,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Cores / Threads" Foreground="{StaticResource TextMutedBrush}" FontSize="10" />
+                                <TextBlock Text="{Binding Classification.CpuCores, StringFormat='{}{0} Cores / '}" Foreground="#00F2FE" FontSize="14" FontWeight="Bold" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Base Clock Speed" Foreground="{StaticResource TextMutedBrush}" FontSize="10" />
+                                <TextBlock Text="{Binding Classification.CpuClockGhz, StringFormat='{}{0:F2} GHz'}" Foreground="#8B5CF6" FontSize="14" FontWeight="Bold" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Graphics Specs Card -->
+                <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource GlassCard}">
+                    <StackPanel>
+                        <TextBlock Text="GRAPHICS ADAPTER (GPU)" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Classification.GpuName}" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold" Margin="0,6,0,0" />
+
+                        <Grid Margin="0,15,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="GPU Type" Foreground="{StaticResource TextMutedBrush}" FontSize="10" />
+                                <TextBlock Text="Integrated GPU" Foreground="#FFB74D" FontSize="14" FontWeight="Bold" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Video Memory" Foreground="{StaticResource TextMutedBrush}" FontSize="10" />
+                                <TextBlock Text="{Binding Classification.VramTotalGb, StringFormat='{}{0:F1} GB Shared'}" Foreground="#00FF66" FontSize="14" FontWeight="Bold" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- RAM Specs Card -->
+                <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource GlassCard}">
+                    <StackPanel>
+                        <TextBlock Text="SYSTEM MEMORY (RAM)" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Classification.RamTotalGb, StringFormat='{}{0:F0} GB DDR Memory'}" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold" Margin="0,6,0,0" />
+                        <TextBlock Text="Adequate capacity for multi-tasking and background application buffering." Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,8,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Target Profile Presets Card -->
+                <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource GlassCard}">
+                    <StackPanel>
+                        <TextBlock Text="RECOMMENDED OPTIMIZATION PRESET" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" />
+                        <TextBlock Text="Entry-Level / Portable Office Profile" Foreground="#00F2FE" FontSize="16" FontWeight="Bold" Margin="0,6,0,0" />
+                        <TextBlock Text="Pauses heavy background services, tunes 1Hz telemetry, and enforces high-performance power plan during gameplay." Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,8,0,0" />
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
